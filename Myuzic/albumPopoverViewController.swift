@@ -6,7 +6,7 @@
 //  Copyright © 2017 Myuze. All rights reserved.
 //
 
-/**
+
 import Foundation
 import UIKit
 import MediaPlayer
@@ -29,9 +29,13 @@ class albumPopoverViewController: UITableViewController {
         navBar.shadowImage = UIImage()
         self.tableView.backgroundView = backgroundImage
         super.viewDidLoad()
-        print("the name is " + songs[0].albumTitle! )
-        albumNameLabel.text = songs[0].albumTitle
-        artistNameLabel.text = songs[0].artist
+        var number = 0
+        while(songs[number].albumTitle == nil) {
+            number += 1
+        }
+        print("the name is " + songs[number].albumTitle! )
+        albumNameLabel.text = songs[number].albumTitle
+        artistNameLabel.text = songs[number].artist
         if(songs[0].artwork == nil){
            
             
@@ -143,4 +147,3 @@ class albumPopoverViewController: UITableViewController {
     
     
 }
- */

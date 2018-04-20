@@ -16,10 +16,10 @@ extension String {
         let idx1 = index(startIndex, offsetBy: range.lowerBound)
         
         if(range.upperBound > endIndex.encodedOffset) {
-            var idx2 = index(startIndex, offsetBy: endIndex.encodedOffset)
+            let idx2 = index(startIndex, offsetBy: endIndex.encodedOffset)
             return String(self[idx1..<idx2])
         }
-        var idx2 = index(startIndex, offsetBy: range.upperBound)
+        let idx2 = index(startIndex, offsetBy: range.upperBound)
         return String(self[idx1..<idx2])
         
     }
@@ -28,14 +28,15 @@ extension String {
 class serverManager: NSObject, CLLocationManagerDelegate{
     var locationManager = CLLocationManager()
     
-    var stringURL:String = "http://143.215.118.234:3000/songs/"
-    var predictionURL:String = "http://143.215.118.234:3000/aiPredictions/"
+    var stringURL:String = "http://143.215.114.209:3000/songs/"
+    var predictionURL:String = "http://143.215.114.209:3000/aiPredictions/"
     
     var dataController = dataManager()
+    private var shouldMakeMoreCalls = true;
     
     func checkLocation() -> String{
         
-        if(verifyUrl(urlString: stringURL)){
+        if(verifyUrl()){
             locationManager.delegate = self
             if CLLocationManager.authorizationStatus() == .notDetermined {
                 self.locationManager.requestWhenInUseAuthorization()
@@ -58,7 +59,7 @@ class serverManager: NSObject, CLLocationManagerDelegate{
     
     
     func put(objectID:String, songtoAdd: String){
-        if(verifyUrl(urlString: stringURL)){
+        if(verifyUrl()){
             let urlString = stringURL + objectID
             var previousSong:String = ""
             var previousLocation:String = ""
@@ -147,42 +148,50 @@ class serverManager: NSObject, CLLocationManagerDelegate{
     
     
     func post2(genre: String, numberOfPlays: String,albumName: String, artistName: String, bpm: String, songName: String, locationName: String, numberOfSkips: String, duration: String,lastPlayed:String ){
-        let body: NSMutableDictionary? = [
-            "genre": "\(genre)",
-            "numberOfPlays": "\(numberOfPlays)",
-            "albumName": "\(albumName)",
-            "artistName": "\(artistName)",
-            "bpm": "\(bpm)",
-            "songName": "\(songName)",
-            "locationName": "\(locationName)",
-            "numberOfSkips": "\(numberOfSkips)",
-            "duration": "\(duration)",
-            "lastPlayed": "\(lastPlayed)"
         
-        ]
-        
-        let url = NSURL(string: stringURL as String)
-        var request = URLRequest(url: url! as URL)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let data = try! JSONSerialization.data(withJSONObject: body!, options: JSONSerialization.WritingOptions.prettyPrinted)
-        
-        let json = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-        if let json = json {
-            print(json)
-        }
-        request.httpBody = json!.data(using: String.Encoding.utf8.rawValue)
-        let alamoRequest = Alamofire.request(request as URLRequestConvertible)
-        alamoRequest.validate(statusCode: 200..<300)
-        alamoRequest.responseString { response in
+        if (verifyUrl()) {
             
-            switch response.result {
-            case .success:
-                print("Posted sucessfully")
-            case .failure( _):
-                print("U failed son")
+                let body: NSMutableDictionary? = [
+                    "genre": "\(genre)",
+                    "numberOfPlays": "\(numberOfPlays)",
+                    "albumName": "\(albumName)",
+                    "artistName": "\(artistName)",
+                    "bpm": "\(bpm)",
+                    "songName": "\(songName)",
+                    "locationName": "\(locationName)",
+                    "numberOfSkips": "\(numberOfSkips)",
+                    "duration": "\(duration)",
+                    "lastPlayed": "\(lastPlayed)"
+                    
+                ]
+                
+                let url = NSURL(string: self.stringURL as String)
+                var request = URLRequest(url: url! as URL)
+                request.httpMethod = "POST"
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                let data = try! JSONSerialization.data(withJSONObject: body!, options: JSONSerialization.WritingOptions.prettyPrinted)
+                
+                let json = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+                if let json = json {
+                    print(json)
+                }
+                request.httpBody = json!.data(using: String.Encoding.utf8.rawValue)
+                let alamoRequest = Alamofire.request(request as URLRequestConvertible)
+                alamoRequest.validate(statusCode: 200..<300)
+                alamoRequest.responseString { response in
+                    
+                    switch response.result {
+                    case .success:
+                        print("Posted sucessfully")
+                    case .failure( _):
+                        
+                        print("Cold not post data")
+                    }
+                }
+            
             }
-        }
+            
+        
     }
     
     
@@ -195,7 +204,7 @@ class serverManager: NSObject, CLLocationManagerDelegate{
     
     
     func saveToCoreData(){
-        if(verifyUrl(urlString: stringURL)){
+        if(verifyUrl()){
             Alamofire.request(stringURL).responseJSON { response in
                 
                 if let json = response.result.value {
@@ -262,15 +271,26 @@ class serverManager: NSObject, CLLocationManagerDelegate{
     
     
     
-    func verifyUrl (urlString: String?) -> Bool {
-        //Check for nil
-        if let urlString = urlString {
-            // create NSURL instance
-            if let url = NSURL(string: urlString) {
-                // check if your application can open the NSURL instance
-                return UIApplication.shared.canOpenURL(url as URL)
-            }
+    func verifyUrl () -> Bool {
+        
+        
+        var url: NSURL = NSURL(string: stringURL)!
+        var request: NSURLRequest = NSURLRequest(url: url as URL)
+        var response: URLResponse?
+        
+        let data =  try? NSURLConnection.sendSynchronousRequest(request as URLRequest, returning: &response) as NSData?
+        guard let guardedData = data else {
+            print("no connection")
+            return false;
         }
-        return false
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            print("error \(httpResponse.statusCode)")
+        }
+        print("connection")
+        return true;
     }
 }
+
+
+

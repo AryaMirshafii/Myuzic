@@ -93,10 +93,10 @@ class playlistTable: UITableViewController, UINavigationBarDelegate {
                 fatalError("The dequeued cell is not an instance of tablePlayerCell.")
                 
             }
-           
+            //print("INDEX is 0")
             return cell
         }
-        
+       
         let cellIdentifier = "playlistCell"
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? playlistCell  else {
             fatalError("The dequeued cell is not an instance of playlistCell.")
@@ -120,6 +120,8 @@ class playlistTable: UITableViewController, UINavigationBarDelegate {
             //cell.albumArt.image = UIImage(named: "no")
             cell.albumArt = UIImageView(image: #imageLiteral(resourceName: "noArtworkFound"))
         } else {
+            
+            print("indexpath is " + String(indexPath.row))
             cell.albumArt.image = aSong?.artwork?.image(at: CGSize(width: 200, height: 200))
         }
         

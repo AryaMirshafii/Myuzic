@@ -51,10 +51,9 @@ class playlistTableView: UITableViewController,UISearchBarDelegate {
         aView.backgroundColor = background.getCellColor(theTheme: datamanager.fetchData())
         self.tableView.tableHeaderView = aView
         */
-        DispatchQueue.global().async {
-            self.loadPlaylists()
-            self.loadSearchSongs()
-        }
+        print("view HAS APPEARED")
+        self.loadPlaylists()
+        
        tableView.rowHeight = 120
         
         
@@ -65,87 +64,9 @@ class playlistTableView: UITableViewController,UISearchBarDelegate {
     
     
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        
-        
-        
-        if searchText.isEmpty {
-            isTyping = false
-            tableView.sectionIndexColor = UIColor.white
-            //searchResults = songs
-            //searchDict = songsDict
-            // wordsSearchSection = wordsSection
-            
-            self.tableView.reloadData()
-        }else {
-            isTyping = true
-            tableView.sectionIndexColor = UIColor.clear
-            filterTableView(text: searchText)
-            
-        }
-        
-        if searchBar.text == nil || searchBar.text == ""
-        {
-            isTyping = false
-            searchBar.perform(#selector(self.resignFirstResponder), with: nil, afterDelay: 0.1)
-        }
-        
-        
-        
-        
-        
-    }
     
-    func filterTableView(text: String) {
-        var ASEaarch = [MPMediaItem]()
-        
-        //var searchAppend = [Song]()
-        var searchByName = [MPMediaItem]()
-        searchByName = fullSongs.filter({ (mod) -> Bool in
-            return (mod.title?.lowercased().contains(text.lowercased()))!
-            
-            
-        })
-        
-        var searchByArtist = [MPMediaItem]()
-        searchByArtist = fullSongs.filter({ (mod) -> Bool in
-            
-            
-            
-            
-            
-            
-            return (mod.albumTitle?.lowercased().contains(text.lowercased()))!
-            
-        })
-        if(!searchByName.isEmpty){
-            ASEaarch += searchByName
-        }
-        
-        if(!searchByArtist.isEmpty){
-            ASEaarch += searchByArtist
-        }
-        //print(String(searchByName.count) + " *****" + String(searchByArtist.count) + " *****" + String(songSearch.count))
-        
-        
-        print("The end is" + songSearch[songSearch.count-1].title!)
-        songSearch = ASEaarch
-        
-        
-        //fullSongs = searchAppend
-        //search
-        
-        //searchAppend.removeAll()
-        
-        
-        
-        //self.tableView.reloadData()
-        
-        self.tableView.reloadData()
-        
-        
-    }
+    
+    
     
     
     
@@ -172,9 +93,6 @@ class playlistTableView: UITableViewController,UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if(isTyping){
-            return songSearch.count
-        }
         
         
         return playlistArray.count
@@ -210,7 +128,7 @@ class playlistTableView: UITableViewController,UISearchBarDelegate {
             let cellIdentifier = "playlistTableCell"
         
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? playlistTableCell  else {
-            fatalError("The dequeued cell is not an instance of playlistTableCell.")
+             fatalError("The dequeued cell is not an instance of playlistTableCell.")
             }
         
             // Fetches the appropriate meal for the data source layout.
@@ -219,7 +137,7 @@ class playlistTableView: UITableViewController,UISearchBarDelegate {
             cell.nameLabel.text = aPlaylist.name
             cell.photoImageView.image = aPlaylist.photo
         
-            
+             print("INDEX is not 0")
             return cell
             /*
         }else {
@@ -362,10 +280,12 @@ class playlistTableView: UITableViewController,UISearchBarDelegate {
             //fatalError("Unable to instantiate meal1")
             
             let playlistName = playlist.value(forProperty: MPMediaPlaylistPropertyName)
-            guard let aPlaylist = Playlist(name: playlistName as! String, photo: setImage(songs: playlist.items), songs: playlist.items) else {
+            
+            guard let aPlaylist = Playlist(name: playlistName as! String, photo: self.setImage(songs: playlist.items), songs: playlist.items) else {
                 fatalError("Unable to instantiate")
             }
-            playlistArray += [aPlaylist]
+            self.playlistArray += [aPlaylist]
+            
             
         }
         

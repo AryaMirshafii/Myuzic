@@ -8,6 +8,13 @@
 
 import SideMenu
 import MediaPlayer
+import Alamofire
+struct Connectivity {
+    static let sharedInstance = NetworkReachabilityManager()!
+    static var isConnectedToInternet:Bool {
+        return self.sharedInstance.isReachable
+    }
+}
 
 class MainViewController: UIViewController {
     
@@ -45,6 +52,21 @@ class MainViewController: UIViewController {
     var userData = dataController()
     override func viewDidLoad() {
         super.viewDidLoad()
+        let status = MPMediaLibrary.authorizationStatus()
+        if(status == .authorized){
+            startPlaying()
+            self.updateUI()
+            DispatchQueue.global().async{
+                
+            }
+            self.loadPlaylists()
+            self.playlistNameLabel.text = self.playlistNames[0]
+            
+            player.pause()
+            
+        } else {
+            return;
+        }
         setupSideMenu()
         
         
@@ -84,16 +106,13 @@ class MainViewController: UIViewController {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(self.updateUI), name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange , object: nil)
         notificationCenter.addObserver(self, selector: #selector(self.updatePlaybackUI), name: NSNotification.Name.MPMusicPlayerControllerPlaybackStateDidChange , object: nil)
-        let status = MPMediaLibrary.authorizationStatus()
-        if(status == .authorized){
-            self.loadPlaylists()
-            playlistNameLabel.text = playlistNames[0]
-        }
+        
+        
         
         self.setupPlaylistGesture()
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed(_:)))
         longPressRecognizer.cancelsTouchesInView = false
-        self.view.addGestureRecognizer(longPressRecognizer)
+        self.swipeZone.addGestureRecognizer(longPressRecognizer)
         
     }
     
@@ -166,18 +185,19 @@ class MainViewController: UIViewController {
     
     
     
-    /*
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showAlbumView"{
             if let nextViewController = segue.destination as? albumPopoverViewController{
                 
                 if(player.nowPlayingItem?.albumTitle != nil){
                     let albumName:String = (player.nowPlayingItem?.albumTitle!)!
+                    let albumArtist:String = (player.nowPlayingItem?.artist!)!
                     
                     let albumFilter = MPMediaQuery.albums().items?.filter({ (mod) -> Bool in
                         
                         
-                        return (mod.albumTitle != nil && (mod.albumTitle?.lowercased().contains(albumName.lowercased()))!)
+                        return (mod.albumTitle != nil && mod.albumTitle?.lowercased() == (albumName.lowercased()))
                     })
                     nextViewController.songs = albumFilter
                     
@@ -187,8 +207,9 @@ class MainViewController: UIViewController {
             }
         }
     }
- */
+ 
     override func viewDidAppear(_ animated: Bool){
+        /**
         let status = MPMediaLibrary.authorizationStatus()
         switch status {
         case .notDetermined:
@@ -207,6 +228,7 @@ class MainViewController: UIViewController {
         default:
             break
         }
+ */
     }
     
     func startPlaying(){
@@ -541,78 +563,72 @@ class MainViewController: UIViewController {
         
         
         
-        
-        
-        
-        
-        var songName = self.player.nowPlayingItem?.title
-        var artistname = " "
-        if(self.player.nowPlayingItem?.artist != nil){
-            artistname = (self.player.nowPlayingItem?.artist)!
-        }
-        
-        
-        var albumName = " "
-        if(self.player.nowPlayingItem?.albumTitle != nil){
-            albumName = (self.player.nowPlayingItem?.albumTitle)!
-        }
-        
-        var numberOfPlays:Int! = 0
-        if(self.player.nowPlayingItem?.playCount != nil){
-            numberOfPlays = (self.player.nowPlayingItem?.playCount)!
-        }
-        
-        var genre = " "
-        if(self.player.nowPlayingItem?.genre != nil){
-            genre = (self.player.nowPlayingItem?.genre)!
-        }
-        var newBpm:Int! = 0
-        let adress = serverController.checkLocation()
-        var numberOfSkips:Int! = 0
-        numberOfSkips = (player.nowPlayingItem?.skipCount)!
-        var duration:Int! = 0
-        duration =   Int((player.nowPlayingItem?.playbackDuration)!)
-        var lastPlayed = player.nowPlayingItem?.lastPlayedDate
-        if(lastPlayed == nil){
-            lastPlayed = Date()
-        }
-        
-        let calendar = NSCalendar.current
-        let components = calendar.component(.hour, from: lastPlayed!)
-        let lastHour:Int! = components
-        DispatchQueue.global().async {
-            if(self.player.nowPlayingItem != nil){
-                
-                let url = self.player.nowPlayingItem?.assetURL
-                if(url != nil){
-                    _ = BPMAnalyzer.core.getBpmFrom(url!, completion: {[weak self] (bpm) in
-                        print("The current playing song is " + (self?.player.nowPlayingItem?.title!)! + " BPM Is " + bpm)
-                        if(bpm != nil) {
-                            if(String(bpm[9..<10]) == "."){
-                                newBpm = Int(bpm[7..<9])
-                            } else {
-                                newBpm = Int(bpm[7..<10])
-                            }
-                        }
-                        if(newBpm != nil) {
-                            print("the last day is" + String(describing: lastPlayed))
-                            self?.serverController.post2(genre: genre, numberOfPlays: String(numberOfPlays), albumName: albumName, artistName: artistname, bpm: String(newBpm), songName: songName!, locationName: adress, numberOfSkips: String(numberOfSkips), duration: String(duration), lastPlayed: String(lastHour))
-                        }
-                        
-                        
-                        
-                        
-                        
-                        
-                    })
-                }
-                
-                
+        if(Connectivity.isConnectedToInternet) {
+            var songName = self.player.nowPlayingItem?.title
+            var artistname = " "
+            if(self.player.nowPlayingItem?.artist != nil){
+                artistname = (self.player.nowPlayingItem?.artist)!
             }
             
+            
+            var albumName = " "
+            if(self.player.nowPlayingItem?.albumTitle != nil){
+                albumName = (self.player.nowPlayingItem?.albumTitle)!
+            }
+            
+            var numberOfPlays:Int! = 0
+            if(self.player.nowPlayingItem?.playCount != nil){
+                numberOfPlays = (self.player.nowPlayingItem?.playCount)!
+            }
+            
+            var genre = " "
+            if(self.player.nowPlayingItem?.genre != nil){
+                genre = (self.player.nowPlayingItem?.genre)!
+            }
+            var newBpm:Int! = 0
+            let adress = serverController.checkLocation()
+            var numberOfSkips:Int! = 0
+            numberOfSkips = (player.nowPlayingItem?.skipCount)!
+            var duration:Int! = 0
+            duration =   Int((player.nowPlayingItem?.playbackDuration)!)
+            var lastPlayed = player.nowPlayingItem?.lastPlayedDate
+            if(lastPlayed == nil){
+                lastPlayed = Date()
+            }
+            
+            let calendar = NSCalendar.current
+            let components = calendar.component(.hour, from: lastPlayed!)
+            let lastHour:Int! = components
+            DispatchQueue.global().async {
+                if(self.serverController.verifyUrl() &&  self.player.nowPlayingItem != nil){
+                    
+                    let url = self.player.nowPlayingItem?.assetURL
+                    if(url != nil){
+                        _ = BPMAnalyzer.core.getBpmFrom(url!, completion: {[weak self] (bpm) in
+                            print("The current playing song is " + (self?.player.nowPlayingItem?.title!)! + " BPM Is " + bpm)
+                            if(bpm != nil) {
+                                if(String(bpm[9..<10]) == "."){
+                                    newBpm = Int(bpm[7..<9])
+                                } else {
+                                    newBpm = Int(bpm[7..<10])
+                                }
+                            }
+                            if(newBpm != nil) {
+                                print("the last day is" + String(describing: lastPlayed))
+                                self?.serverController.post2(genre: genre, numberOfPlays: String(numberOfPlays), albumName: albumName, artistName: artistname, bpm: String(newBpm), songName: songName!, locationName: adress, numberOfSkips: String(numberOfSkips), duration: String(duration), lastPlayed: String(lastHour))
+                            }
+                        })
+                    }
+                    
+                    
+                }
+                
+            }
         }
-        
+
     }
+    
+    
     private func loadPlaylists() {
         self.mediaItems = MPMediaQuery.albums().items!
         self.playlistNames += ["No Playlist Selected"]
