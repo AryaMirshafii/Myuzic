@@ -50,19 +50,26 @@ class MainViewController: UIViewController {
     
     var isSmartShuffling = false
     var userData = dataController()
+    private let remoteCommandCenter = MPRemoteCommandCenter.shared()
     override func viewDidLoad() {
         super.viewDidLoad()
         let status = MPMediaLibrary.authorizationStatus()
         if(status == .authorized){
+            
+            
+            
             startPlaying()
+            
             self.updateUI()
-            DispatchQueue.global().async{
-                
-            }
+            
             self.loadPlaylists()
             self.playlistNameLabel.text = self.playlistNames[0]
             
+            
             player.pause()
+            
+            
+            
             
         } else {
             return;
@@ -102,7 +109,8 @@ class MainViewController: UIViewController {
         
         
         
-        self.player.beginGeneratingPlaybackNotifications()
+        MPMusicPlayerController.systemMusicPlayer.beginGeneratingPlaybackNotifications()
+        
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(self.updateUI), name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange , object: nil)
         notificationCenter.addObserver(self, selector: #selector(self.updatePlaybackUI), name: NSNotification.Name.MPMusicPlayerControllerPlaybackStateDidChange , object: nil)
@@ -115,6 +123,20 @@ class MainViewController: UIViewController {
         self.swipeZone.addGestureRecognizer(longPressRecognizer)
         
     }
+    override func viewDidAppear(_ animated: Bool){
+        
+        updateUI()
+       
+       
+       
+        
+    }
+    
+    
+   
+    
+    
+    
     
     
     @objc func longPressed(_ sender: UILongPressGestureRecognizer){
@@ -151,8 +173,7 @@ class MainViewController: UIViewController {
         self.navigationController?.view.backgroundColor = UIColor.clear
 
         
-        // Set up a cool background image for demo purposes
-        //SideMenuManager.default.menuAnimationBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
+        
     }
     
     
@@ -192,7 +213,7 @@ class MainViewController: UIViewController {
                 
                 if(player.nowPlayingItem?.albumTitle != nil){
                     let albumName:String = (player.nowPlayingItem?.albumTitle!)!
-                    let albumArtist:String = (player.nowPlayingItem?.artist!)!
+                    let _:String = (player.nowPlayingItem?.artist!)!
                     
                     let albumFilter = MPMediaQuery.albums().items?.filter({ (mod) -> Bool in
                         
@@ -208,36 +229,14 @@ class MainViewController: UIViewController {
         }
     }
  
-    override func viewDidAppear(_ animated: Bool){
-        /**
-        let status = MPMediaLibrary.authorizationStatus()
-        switch status {
-        case .notDetermined:
-            MPMediaLibrary.requestAuthorization({ (status) in
-                UIControl().sendAction(#selector(NSXPCConnection.suspend),
-                                       to: UIApplication.shared, for: nil)
-                //self.startPlaying()
-                //self.updateUI()
-            })
-        case .authorized:
-            if(player.nowPlayingItem == nil){
-                self.startPlaying()
-            }
-            player.pause()
-            self.updateUI()
-        default:
-            break
-        }
- */
-    }
     
-    func startPlaying(){
+    
+    private func startPlaying(){
         self.mediaItems = MPMediaQuery.albums().items!
         let mediaCollection = MPMediaItemCollection(items: self.mediaItems)
         self.player.setQueue(with: mediaCollection)
         player.prepareToPlay()
         player.pause()
-        //albumBackgroundImage.layer.backgroundColor = UIColor(red:0.15, green:0.65, blue:0.93, alpha:1.0).cgColor
         updateDuration()
     }
     
@@ -253,8 +252,13 @@ class MainViewController: UIViewController {
             backgroundShadowImage.layer.backgroundColor = UIColor.clear.cgColor
             
         }
+        
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: "PLEASE WORK"
+        ]
+        
     }
-    @objc func updateDuration(){
+    @objc private func updateDuration(){
         if (player.nowPlayingItem != nil) {
             durationSlider.maximumValue = Float((player.nowPlayingItem?.playbackDuration)!)
             durationSlider.setValue(Float(player.currentPlaybackTime), animated: false)
@@ -266,7 +270,7 @@ class MainViewController: UIViewController {
         
     }
     
-    func secondsToMinutesSeconds (seconds : Int) -> (String) {
+    private func secondsToMinutesSeconds (seconds : Int) -> (String) {
         let minutes = String((seconds % 3600) / 60)
         var secondsString = String((seconds % 3600) % 60)
         
@@ -277,7 +281,7 @@ class MainViewController: UIViewController {
         }
         return minutes + ":" + secondsString
     }
-    @objc func setDurationValue(){
+    @objc private func setDurationValue(){
         player.currentPlaybackTime = TimeInterval(durationSlider.value)
     }
     
@@ -419,12 +423,12 @@ class MainViewController: UIViewController {
         
         
         
-    
-        
     }
     
+    
     @IBAction func previous(_ sender: Any) {
-        print(serverController.getPredictions())
+        //
+        print(MPNowPlayingInfoCenter.default().nowPlayingInfo)
     }
     @objc func updateServer(timer:Timer){
         /**
@@ -525,6 +529,7 @@ class MainViewController: UIViewController {
             let anImage = #imageLiteral(resourceName: "noArtworkFound")
             //anImage.sizeThatFits(albumArtImage.frame.size)
             albumArtImage.image = anImage
+            
         }
         
         /// sets the name of the song
@@ -562,9 +567,8 @@ class MainViewController: UIViewController {
         
         
         
-        
         if(Connectivity.isConnectedToInternet) {
-            var songName = self.player.nowPlayingItem?.title
+            let songName = self.player.nowPlayingItem?.title
             var artistname = " "
             if(self.player.nowPlayingItem?.artist != nil){
                 artistname = (self.player.nowPlayingItem?.artist)!

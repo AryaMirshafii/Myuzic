@@ -33,10 +33,10 @@
 		D18BF56820708E5C004390DD /* BMPAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18BF56320708E5A004390DD /* BMPAnalyzer.swift */; };
 		D18BF56A20708E5C004390DD /* Superpowered.mm in Sources */ = {isa = PBXBuildFile; fileRef = D18BF56720708E5C004390DD /* Superpowered.mm */; };
 		D18BF56D20708E84004390DD /* albumPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18BF56C20708E84004390DD /* albumPopoverViewController.swift */; };
-		D18BF574207092FF004390DD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D18BF570207092FE004390DD /* AudioToolbox.framework */; };
 		D18BF575207092FF004390DD /* MediaToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D18BF571207092FF004390DD /* MediaToolbox.framework */; };
 		D18BF576207092FF004390DD /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D18BF572207092FF004390DD /* CoreMedia.framework */; };
 		D18BF577207092FF004390DD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D18BF573207092FF004390DD /* AVFoundation.framework */; };
+		D1BBC228208BF3DB00EE8AAB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1BBC227208BF3DB00EE8AAB /* AudioToolbox.framework */; };
 		D1CEBF6D20709A8400EC7822 /* libSuperpoweredAudioIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D18BF56620708E5B004390DD /* libSuperpoweredAudioIOS.a */; };
 		D1CEBF7020726B3200EC7822 /* songViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CEBF6E20726B3200EC7822 /* songViewCell.swift */; };
 		D1CEBF7120726B3200EC7822 /* songViewTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CEBF6F20726B3200EC7822 /* songViewTable.swift */; };
@@ -128,10 +128,11 @@
 		D18BF56720708E5C004390DD /* Superpowered.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Superpowered.mm; sourceTree = "<group>"; };
 		D18BF56C20708E84004390DD /* albumPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = albumPopoverViewController.swift; sourceTree = "<group>"; };
 		D18BF56F207091F5004390DD /* Myuzic-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Myuzic-Bridging-Header.h"; sourceTree = "<group>"; };
-		D18BF570207092FE004390DD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D18BF571207092FF004390DD /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
 		D18BF572207092FF004390DD /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		D18BF573207092FF004390DD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D1BBC226208BF1B200EE8AAB /* Myuzic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Myuzic.entitlements; sourceTree = "<group>"; };
+		D1BBC227208BF3DB00EE8AAB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D1CEBF6E20726B3200EC7822 /* songViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = songViewCell.swift; sourceTree = "<group>"; };
 		D1CEBF6F20726B3200EC7822 /* songViewTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = songViewTable.swift; sourceTree = "<group>"; };
 		D1CEBF7320726B4E00EC7822 /* AlbumTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumTableCell.swift; sourceTree = "<group>"; };
@@ -147,8 +148,8 @@
 				D18BF575207092FF004390DD /* MediaToolbox.framework in Frameworks */,
 				D18BF577207092FF004390DD /* AVFoundation.framework in Frameworks */,
 				D1CEBF6D20709A8400EC7822 /* libSuperpoweredAudioIOS.a in Frameworks */,
-				D18BF574207092FF004390DD /* AudioToolbox.framework in Frameworks */,
 				D18BF576207092FF004390DD /* CoreMedia.framework in Frameworks */,
+				D1BBC228208BF3DB00EE8AAB /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +188,7 @@
 		8821D3C06CA09D53C1D26D96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D18BF570207092FE004390DD /* AudioToolbox.framework */,
+				D1BBC227208BF3DB00EE8AAB /* AudioToolbox.framework */,
 				D18BF573207092FF004390DD /* AVFoundation.framework */,
 				D18BF572207092FF004390DD /* CoreMedia.framework */,
 				D18BF571207092FF004390DD /* MediaToolbox.framework */,
@@ -236,6 +237,7 @@
 		D18BF50820707E46004390DD /* Myuzic */ = {
 			isa = PBXGroup;
 			children = (
+				D1BBC226208BF1B200EE8AAB /* Myuzic.entitlements */,
 				D1CEBF7520726B5200EC7822 /* AlbumView */,
 				D1CEBF7220726B3600EC7822 /* SongView */,
 				D18BF56C20708E84004390DD /* albumPopoverViewController.swift */,
@@ -429,6 +431,12 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InterAppAudio = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -843,6 +851,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Myuzic/Myuzic.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y4XKW822R6;
 				HEADER_SEARCH_PATHS = "";
@@ -869,6 +878,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Myuzic/Myuzic.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y4XKW822R6;
 				HEADER_SEARCH_PATHS = "";
