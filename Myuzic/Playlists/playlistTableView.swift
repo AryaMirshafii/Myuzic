@@ -51,7 +51,7 @@ class playlistTableView: UITableViewController,UISearchBarDelegate {
         aView.backgroundColor = background.getCellColor(theTheme: datamanager.fetchData())
         self.tableView.tableHeaderView = aView
         */
-        print("view HAS APPEARED")
+        
         self.loadPlaylists()
         
        tableView.rowHeight = 120

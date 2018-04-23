@@ -280,14 +280,14 @@ class serverManager: NSObject, CLLocationManagerDelegate{
         
         let data =  try? NSURLConnection.sendSynchronousRequest(request as URLRequest, returning: &response) as NSData?
         guard let guardedData = data else {
-            print("no connection")
+            print("No connection to the server!")
             return false;
         }
         
         if let httpResponse = response as? HTTPURLResponse {
             print("error \(httpResponse.statusCode)")
         }
-        print("connection")
+        print("Connected to server!")
         return true;
     }
 }

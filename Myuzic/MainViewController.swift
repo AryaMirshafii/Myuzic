@@ -56,7 +56,11 @@ class MainViewController: UIViewController {
         let status = MPMediaLibrary.authorizationStatus()
         if(status == .authorized){
             
-            
+            if(MPMediaQuery.albums().items!.isEmpty) {
+                performSegue(withIdentifier: "noSongs", sender: nil)
+                return
+                
+            }
             
             startPlaying()
             
@@ -124,8 +128,11 @@ class MainViewController: UIViewController {
         
     }
     override func viewDidAppear(_ animated: Bool){
+        if(player.nowPlayingItem != nil) {
+            updateUI()
+        }
+        print("visible")
         
-        updateUI()
        
        
        

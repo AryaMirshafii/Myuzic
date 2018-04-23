@@ -10,6 +10,7 @@
 		7F897681F481556090764845 /* Pods_MyuzicUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B760480177662BE4985E5E0 /* Pods_MyuzicUITests.framework */; };
 		950C098DB68318882C6C21F4 /* Pods_Myuzic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F005E115A2EE24ED1460088C /* Pods_Myuzic.framework */; };
 		9C767F4B3808F701B87669F5 /* Pods_MyuzicTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 510BD4BCCE7196B823292313 /* Pods_MyuzicTests.framework */; };
+		D10DCDF4208D6271005D27E2 /* noSongs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10DCDF3208D6271005D27E2 /* noSongs.swift */; };
 		D13AAF8320787ADF002958C2 /* AlbumTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13AAF8220787ADF002958C2 /* AlbumTableView.swift */; };
 		D13AAF8A20787CC1002958C2 /* playlistTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13AAF8520787CC0002958C2 /* playlistTable.swift */; };
 		D13AAF8B20787CC1002958C2 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13AAF8620787CC0002958C2 /* Playlist.swift */; };
@@ -69,6 +70,7 @@
 		6D4C645E1B3BEAA6F7E79133 /* Pods-Myuzic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Myuzic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Myuzic/Pods-Myuzic.debug.xcconfig"; sourceTree = "<group>"; };
 		8D2A34A3D77F22512897EA45 /* Pods-MyuzicUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyuzicUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyuzicUITests/Pods-MyuzicUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B56A6B03BF968160919B5D2C /* Pods-MyuzicUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyuzicUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyuzicUITests/Pods-MyuzicUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D10DCDF3208D6271005D27E2 /* noSongs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = noSongs.swift; sourceTree = "<group>"; };
 		D13AAF8220787ADF002958C2 /* AlbumTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumTableView.swift; sourceTree = "<group>"; };
 		D13AAF8520787CC0002958C2 /* playlistTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = playlistTable.swift; sourceTree = "<group>"; };
 		D13AAF8620787CC0002958C2 /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				D18BF50920707E46004390DD /* AppDelegate.swift */,
 				D13AAF8F20787CC5002958C2 /* Playlists */,
 				D18BF50D20707E46004390DD /* Main.storyboard */,
+				D10DCDF3208D6271005D27E2 /* noSongs.swift */,
 				D18BF53C207084B5004390DD /* MainViewController.swift */,
 				D18BF53A207084B5004390DD /* PresentedViewController.swift */,
 				D18BF53B207084B5004390DD /* SideMenuTableViewController.swift */,
@@ -684,6 +687,7 @@
 				D1CEBF7420726B4E00EC7822 /* AlbumTableCell.swift in Sources */,
 				D18BF542207087C8004390DD /* dataManager.swift in Sources */,
 				D18BF53E207084B6004390DD /* SideMenuTableViewController.swift in Sources */,
+				D10DCDF4208D6271005D27E2 /* noSongs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -854,6 +858,7 @@
 				CODE_SIGN_ENTITLEMENTS = Myuzic/Myuzic.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y4XKW822R6;
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Myuzic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -881,6 +886,7 @@
 				CODE_SIGN_ENTITLEMENTS = Myuzic/Myuzic.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y4XKW822R6;
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Myuzic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
