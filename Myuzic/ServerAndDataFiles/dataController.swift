@@ -15,6 +15,7 @@ class dataController {
     struct defaultsKeys {
         static let shouldTransition = "false"
         static let songsOnServer = "0"
+        static let permissionsGranted = false
         
         
     }

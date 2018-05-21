@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Pleasseee</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -22,13 +24,12 @@
 	<true/>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Please Let Myuze Acess Your Songs</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Pelse</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Let Myuze To Access Your Motion Data</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Please Let Myuze Acess Your Songs</string>
 		<string>HKGrotesk-MediumLegacy.ttf</string>
 		<string>HKGrotesk-Regular.ttf</string>
 		<string>HKGrotesk-RegularLegacy.ttf</string>
@@ -55,7 +56,6 @@
 		<string>external-accessory</string>
 		<string>fetch</string>
 		<string>location</string>
-		<string>newsstand-content</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

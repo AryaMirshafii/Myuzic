@@ -10,6 +10,8 @@
 		7F897681F481556090764845 /* Pods_MyuzicUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B760480177662BE4985E5E0 /* Pods_MyuzicUITests.framework */; };
 		950C098DB68318882C6C21F4 /* Pods_Myuzic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F005E115A2EE24ED1460088C /* Pods_Myuzic.framework */; };
 		9C767F4B3808F701B87669F5 /* Pods_MyuzicTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 510BD4BCCE7196B823292313 /* Pods_MyuzicTests.framework */; };
+		D10984CD20B0D4AD005D8379 /* musicLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10984CC20B0D4AD005D8379 /* musicLogin.swift */; };
+		D10984CF20B0D5DB005D8379 /* locationLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10984CE20B0D5DB005D8379 /* locationLogin.swift */; };
 		D10DCDF4208D6271005D27E2 /* noSongs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10DCDF3208D6271005D27E2 /* noSongs.swift */; };
 		D13AAF8320787ADF002958C2 /* AlbumTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13AAF8220787ADF002958C2 /* AlbumTableView.swift */; };
 		D13AAF8A20787CC1002958C2 /* playlistTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13AAF8520787CC0002958C2 /* playlistTable.swift */; };
@@ -37,7 +39,6 @@
 		D18BF575207092FF004390DD /* MediaToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D18BF571207092FF004390DD /* MediaToolbox.framework */; };
 		D18BF576207092FF004390DD /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D18BF572207092FF004390DD /* CoreMedia.framework */; };
 		D18BF577207092FF004390DD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D18BF573207092FF004390DD /* AVFoundation.framework */; };
-		D1BBC228208BF3DB00EE8AAB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1BBC227208BF3DB00EE8AAB /* AudioToolbox.framework */; };
 		D1CEBF6D20709A8400EC7822 /* libSuperpoweredAudioIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D18BF56620708E5B004390DD /* libSuperpoweredAudioIOS.a */; };
 		D1CEBF7020726B3200EC7822 /* songViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CEBF6E20726B3200EC7822 /* songViewCell.swift */; };
 		D1CEBF7120726B3200EC7822 /* songViewTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CEBF6F20726B3200EC7822 /* songViewTable.swift */; };
@@ -70,6 +71,8 @@
 		6D4C645E1B3BEAA6F7E79133 /* Pods-Myuzic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Myuzic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Myuzic/Pods-Myuzic.debug.xcconfig"; sourceTree = "<group>"; };
 		8D2A34A3D77F22512897EA45 /* Pods-MyuzicUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyuzicUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyuzicUITests/Pods-MyuzicUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B56A6B03BF968160919B5D2C /* Pods-MyuzicUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyuzicUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyuzicUITests/Pods-MyuzicUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D10984CC20B0D4AD005D8379 /* musicLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = musicLogin.swift; sourceTree = "<group>"; };
+		D10984CE20B0D5DB005D8379 /* locationLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = locationLogin.swift; sourceTree = "<group>"; };
 		D10DCDF3208D6271005D27E2 /* noSongs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = noSongs.swift; sourceTree = "<group>"; };
 		D13AAF8220787ADF002958C2 /* AlbumTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumTableView.swift; sourceTree = "<group>"; };
 		D13AAF8520787CC0002958C2 /* playlistTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = playlistTable.swift; sourceTree = "<group>"; };
@@ -134,7 +137,6 @@
 		D18BF572207092FF004390DD /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		D18BF573207092FF004390DD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D1BBC226208BF1B200EE8AAB /* Myuzic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Myuzic.entitlements; sourceTree = "<group>"; };
-		D1BBC227208BF3DB00EE8AAB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D1CEBF6E20726B3200EC7822 /* songViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = songViewCell.swift; sourceTree = "<group>"; };
 		D1CEBF6F20726B3200EC7822 /* songViewTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = songViewTable.swift; sourceTree = "<group>"; };
 		D1CEBF7320726B4E00EC7822 /* AlbumTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumTableCell.swift; sourceTree = "<group>"; };
@@ -151,7 +153,6 @@
 				D18BF577207092FF004390DD /* AVFoundation.framework in Frameworks */,
 				D1CEBF6D20709A8400EC7822 /* libSuperpoweredAudioIOS.a in Frameworks */,
 				D18BF576207092FF004390DD /* CoreMedia.framework in Frameworks */,
-				D1BBC228208BF3DB00EE8AAB /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,7 +191,6 @@
 		8821D3C06CA09D53C1D26D96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D1BBC227208BF3DB00EE8AAB /* AudioToolbox.framework */,
 				D18BF573207092FF004390DD /* AVFoundation.framework */,
 				D18BF572207092FF004390DD /* CoreMedia.framework */,
 				D18BF571207092FF004390DD /* MediaToolbox.framework */,
@@ -248,6 +248,8 @@
 				D18BF50920707E46004390DD /* AppDelegate.swift */,
 				D13AAF8F20787CC5002958C2 /* Playlists */,
 				D18BF50D20707E46004390DD /* Main.storyboard */,
+				D10984CC20B0D4AD005D8379 /* musicLogin.swift */,
+				D10984CE20B0D5DB005D8379 /* locationLogin.swift */,
 				D10DCDF3208D6271005D27E2 /* noSongs.swift */,
 				D18BF53C207084B5004390DD /* MainViewController.swift */,
 				D18BF53A207084B5004390DD /* PresentedViewController.swift */,
@@ -437,10 +439,10 @@
 								enabled = 1;
 							};
 							com.apple.InterAppAudio = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -674,6 +676,8 @@
 				D1CEBF7120726B3200EC7822 /* songViewTable.swift in Sources */,
 				D13AAF8320787ADF002958C2 /* AlbumTableView.swift in Sources */,
 				D18BF53D207084B6004390DD /* PresentedViewController.swift in Sources */,
+				D10984CF20B0D5DB005D8379 /* locationLogin.swift in Sources */,
+				D10984CD20B0D4AD005D8379 /* musicLogin.swift in Sources */,
 				D18BF51220707E46004390DD /* Myuzic.xcdatamodeld in Sources */,
 				D18BF55E20708DA6004390DD /* dataController.swift in Sources */,
 				D13AAF8C20787CC1002958C2 /* playlistTableView.swift in Sources */,
@@ -855,7 +859,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Myuzic/Myuzic.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y4XKW822R6;
 				ENABLE_BITCODE = NO;
@@ -870,10 +873,12 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = aryaMirshafii.Myuzic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos11.2;
 				SWIFT_OBJC_BRIDGING_HEADER = "Myuzic/SuperPoweredFiles/Myuzic-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SYMROOT = build;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -883,7 +888,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Myuzic/Myuzic.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y4XKW822R6;
 				ENABLE_BITCODE = NO;
@@ -898,9 +902,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = aryaMirshafii.Myuzic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos11.2;
 				SWIFT_OBJC_BRIDGING_HEADER = "Myuzic/SuperPoweredFiles/Myuzic-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SYMROOT = build;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

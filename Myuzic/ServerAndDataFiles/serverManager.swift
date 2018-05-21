@@ -34,25 +34,47 @@ class serverManager: NSObject, CLLocationManagerDelegate{
     var dataController = dataManager()
     private var shouldMakeMoreCalls = true;
     
+    override init() {
+        
+    }
+    
     func checkLocation() -> String{
         
+        locationManager.delegate = self
+        print("pre 12" )
+        
+        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        print("pre 1" )
+        let newLatitude:Int = Int(floor((locationManager.location?.coordinate.latitude)! * 1000))
+        let newLongitude:Int = Int(floor((locationManager.location?.coordinate.longitude)! * 1000))
+        print("Up to here")
+        print(String(newLatitude))
+        print(String(newLongitude)[1..<7])
+        
+        return String(newLatitude) + String(newLongitude)[1..<7]
+        
+        print("pre verify")
         if(verifyUrl()){
+            /**
             locationManager.delegate = self
-            if CLLocationManager.authorizationStatus() == .notDetermined {
-                self.locationManager.requestWhenInUseAuthorization()
-            }
+            print("pre 12" )
             
             locationManager.distanceFilter = kCLDistanceFilterNone
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
-            
+            print("pre 1" )
             let newLatitude:Int = Int(floor((locationManager.location?.coordinate.latitude)! * 1000))
             let newLongitude:Int = Int(floor((locationManager.location?.coordinate.longitude)! * 1000))
+            print("Up to here")
             print(String(newLatitude))
             print(String(newLongitude)[1..<7])
             
-            return String(newLatitude) + String(newLongitude)[1..<7]
+            return String(newLatitude) + String(newLongitude)[1..<7]*/
         }
+        
+        print("preturn" )
         return ""
         
     }
@@ -279,7 +301,7 @@ class serverManager: NSObject, CLLocationManagerDelegate{
         var response: URLResponse?
         
         let data =  try? NSURLConnection.sendSynchronousRequest(request as URLRequest, returning: &response) as NSData?
-        guard let guardedData = data else {
+        guard data != nil else {
             print("No connection to the server!")
             return false;
         }
