@@ -70,12 +70,12 @@ class MainViewController: UIViewController {
             startPlaying()
             
             self.updateUI()
-            
+            updatePlaybackUI()
             self.loadPlaylists()
             self.playlistNameLabel.text = self.playlistNames[0]
             
             
-            player.pause()
+            //player.pause()
             
             
             
@@ -135,7 +135,7 @@ class MainViewController: UIViewController {
         
     }
     override func viewDidAppear(_ animated: Bool){
-        
+        //updateUI()
         /**
         if(mediaItems == nil){
             let status = MPMediaLibrary.authorizationStatus()
@@ -291,6 +291,7 @@ class MainViewController: UIViewController {
     
     
     private func startPlaying(){
+        print("starting to play")
         self.mediaItems = MPMediaQuery.albums().items!
         let mediaCollection = MPMediaItemCollection(items: self.mediaItems)
         self.player.setQueue(with: mediaCollection)
@@ -305,10 +306,12 @@ class MainViewController: UIViewController {
     
     @objc func updatePlaybackUI(){
         print("Updating Playback UI")
-        if(player.playbackState == .paused){
+        if(player.playbackState == .paused || player.playbackState == .stopped || player.playbackState == .interrupted){
+            print("The player is paused")
             backgroundShadowImage.layer.backgroundColor = UIColor(red:0.15, green:0.65, blue:0.93, alpha:1.0).cgColor
             timer.invalidate()
-        } else if(player.playbackState == .playing){
+        } else if(player.playbackState == .playing ){
+            print("The player is not paused")
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateDuration), userInfo: nil, repeats: true)
             backgroundShadowImage.layer.backgroundColor = UIColor.clear.cgColor
             
@@ -316,10 +319,11 @@ class MainViewController: UIViewController {
         
         
         
+        
     }
     @objc private func updateDuration(){
          
-        if (player.nowPlayingItem != nil) {
+        if (player.nowPlayingItem != nil && player.nowPlayingItem?.playbackDuration != nil) {
             durationSlider.maximumValue = Float((player.nowPlayingItem?.playbackDuration)!)
             durationSlider.setValue(Float(player.currentPlaybackTime), animated: false)
             
@@ -380,6 +384,7 @@ class MainViewController: UIViewController {
             case UISwipeGestureRecognizerDirection.left:
                 self.serverTimer.invalidate()
                 player.skipToNextItem()
+                
                 print("going forward")
                 
                 
@@ -576,10 +581,14 @@ class MainViewController: UIViewController {
     
     var serverTimer:Timer = Timer()
     @objc func updateUI(){
+        print("UpdateUI is called")
         if(player.nowPlayingItem == nil && MPMediaLibrary.authorizationStatus() == .authorized){
             print("Updating UI from nil")
             startPlaying()
-        }else if(player.nowPlayingItem != nil){
+            
+            
+        }
+        if(player.nowPlayingItem != nil){
             print("Updating UI")
             let previousTitle = (player.nowPlayingItem?.title)!
             serverTimer =  Timer.scheduledTimer(timeInterval: ((player.nowPlayingItem?.playbackDuration)! / 2), target: self, selector:#selector(updateServer(timer:)), userInfo: previousTitle, repeats:false)
